@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Legal Link| Signup</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-page">
+
+  <!-- Background -->
+  <div class="bg"></div>
+  <div class="overlay"></div>
+
+  <!-- Signup Card -->
+   
+  <div class="auth-card">
+    <h2>Create Account</h2>
+    <p class="subtitle">Join Legal Help System</p>
+    <input id="signupUser" type="text" placeholder="Username">
+<input id="signupEmail" type="email" placeholder="Email">
+
+<input id="signupPass" type="password" placeholder="Password">
+
+ <input type="password" id="signupPassconf" placeholder="Confirm Password" required><br><br>
+
+
+<p class="error-msg" id="signupError"></p>
+
+<button onclick="signup()">Sign Up</button>
+
+
+  </div>
+ 
+
+  <script src="auth.js"></script>
+</body>
+</html>

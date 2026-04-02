@@ -1,0 +1,126 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.auth-page {
+  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  color: #fff;
+  overflow: hidden;
+}
+.error-msg {
+  color: #ffb4b4;
+  font-size: 13px;
+  margin-bottom: 10px;
+  display: none;
+}
+.auth-card a{
+  color:#0b57dc;
+}
+
+/* MOVING BACKGROUND */
+.bg {
+  position: fixed;
+  inset: 0;
+  background: url("../images/disaster-bg.jpg") center/cover no-repeat;
+  animation: zoomMove 25s ease-in-out infinite;
+  z-index: -2;
+}
+
+@keyframes zoomMove {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* GRADIENT OVERLAY */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(40, 40, 40, 0.75),
+    rgba(20, 30, 40, 0.8)
+  );
+  z-index: -1;
+}
+
+/* CARD */
+.auth-card {
+  width: 360px;
+  margin: auto;
+  margin-top: 8%;
+  padding: 30px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+  text-align: center;
+}
+
+.auth-card h2 {
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+
+/* INPUTS */
+.auth-card input,
+.auth-card select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  border: 1px solid #A8DADC;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  outline: none;
+}
+
+.auth-card input::placeholder {
+  color: #e0e0e0;
+}
+
+/* BUTTON */
+.auth-card button {
+  width: 100%;
+  padding: 12px;
+  background: #E63946;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.auth-card button:hover {
+  background: #c92f3b;
+  transform: translateY(-2px);
+}
+
+#loginRole{
+  color:black;
+}
+
+/* LINKS */
+.switch {
+  margin-top: 14px;
+  font-size: 13px;
+}
+
+.switch a {
+  color: #A8DADC;
+  text-decoration: none;
+}
+
+.switch a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegalLink | Your Unified Legal Hub</title>
+    <link rel="stylesheet" href="Dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">⚖️ LEGAL<span>LINK</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="cases.html">My Cases</a></li>
+            <li><a href="legal-help.html">Legal Help</a></li>
+            <li><a href="#lost-found">Lost & Found</a></li>
+            <li><a href="#evidence">Evidence Locker</a></li>
+        </ul>
+        <div class="nav-profile">
+            <i data-lucide="user"></i>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="badge">Legal First Aid</div>
+            <h1>Your Secure <span>Legal Hub</span></h1>
+            <p>Access professional legal support, report lost items, and manage digital evidence with military-grade security. One platform, total justice.</p>
+            <button class="btn-primary" onclick="location.href='#about'">About Us</button>
+        </div>
+        <div class="hero-image-wrapper">
+            <div class="static-blob">
+                <img src="https://adjuvalegal.com/wp-content/uploads/2023/01/legal-aid-to-all-1024x1024.webp" alt="Legal Support">
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="section-tag">Our Vision</div>
+            <h2>About LegalLink</h2>
+            
+            <div class="about-story">
+                <div class="story-text">
+                    <h3>The Problem + Our Solution</h3>
+                    <p>In today’s world, accessing legal help quickly is still a major challenge. People struggle to find reliable assistance or securely store evidence when it matters most.</p>
+                    <p><strong>LegalLink</strong> bridges this gap—providing a unified platform where users can connect with support, report items, and manage evidence in one place.</p>
+                </div>
+                <div class="story-image">
+                    <img src="https://www.livelaw.in/h-upload/2022/11/14/750x450_444092-legal-aid.jpg" alt="Impact">
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i data-lucide="gavel"></i>
+                    <h4>Find Help</h4>
+                    <p>Connect with lawyers and police stations instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <i data-lucide="search"></i>
+                    <h4>Lost & Found</h4>
+                    <p>Intelligent matching for reported lost items.</p>
+                </div>
+                <div class="feature-card">
+                    <i data-lucide="shield-check"></i>
+                    <h4>Evidence Locker</h4>
+                    <p>Secure storage with immutable timestamps.</p>
+                </div>
+            </div>
+
+            <div class="impact-cards">
+                <div class="i-card">🔐 Secure & Private</div>
+                <div class="i-card">⚡ Fast Access</div>
+                <div class="i-card">🌍 Universal Access</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dashboard-preview" id="cases">
+        <div class="container">
+            <h2>Your Case Dashboard</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h3>—</h3>
+                    <p>Total Cases</p>
+                </div>
+                <div class="stat-box active-stat">
+                    <h3>—</h3>
+                    <p>Active Cases</p>
+                </div>
+                <div class="stat-box">
+                    <h3>0</h3>
+                    <p>Resolved Cases</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="contact-card">
+            <div class="contact-header">
+                <h2 style="color: white;">Contact Support</h2>
+                <p>How can we assist you today?</p>
+            </div>
+            <form class="contact-form">
+                <div class="input-row">
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+                <textarea placeholder="Tell us about your case..." rows="5"></textarea>
+                <button type="submit" class="submit-btn">Submit Request</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">LEGAL<span>LINK</span></div>
+            <p>Empowering individuals with faster access to justice and secure information handling.</p>
+            <div class="footer-links">
+                <a href="#">Privacy</a> | <a href="#">Terms</a> | <a href="#">Support</a>
+            </div>
+            <p class="copyright">© 2026 LegalLink. Built for Justice.</p>
+        </div>
+    </footer>
+
+    <script src="Dashboard.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
