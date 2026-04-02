@@ -10,6 +10,14 @@ const GEO_OPTIONS = {
   maximumAge: 300000
 };
 
+// Location "type" dropdown controls how wide the backend searches.
+// values are tuned to make results match "near me" expectations.
+const LOCATION_RADIUS = {
+  nearby:   { lawyersKm: 25,  policeM: 8000 },
+  citywide: { lawyersKm: 100, policeM: 25000 },
+  wide:     { lawyersKm: 200, policeM: 50000 }
+};
+
 /* ── TAB SWITCHING ── */
 function initTabs() {
   const buttons = document.querySelectorAll('.tab-btn');
@@ -26,7 +34,16 @@ function initTabs() {
 }
 
 /* ── GPS: prompt as soon as we need coordinates (tab click or lawyers init) ── */
-function askLocationThenFetch(onSuccess, onFail) {
+function askLocationThenFetch(onSuccess, onFail, opts = {}) {
+  // If the user manually set a city/area (lat/lng cleared), avoid re-prompting GPS.
+  if (opts.skipIfCity) {
+    const hasManualCity = Boolean(window._userCity);
+    const noGps = window._userLat == null && window._userLng == null;
+    if (hasManualCity && noGps) {
+      onSuccess?.();
+      return;
+    }
+  }
   if (!navigator.geolocation) {
     window._userCity = window._userCity || 'Ghaziabad, Uttar Pradesh';
     onFail?.();
@@ -152,6 +169,10 @@ async function fetchLawyers(extraParams = {}) {
     } else {
       params.set('address', window._userCity || 'Ghaziabad, Uttar Pradesh');
     }
+    const locType = document.getElementById('lawyer-location-type')?.value || 'nearby';
+    const rad = LOCATION_RADIUS[locType] || LOCATION_RADIUS.nearby;
+    // Backend expects `radius` in meters for $near
+    params.set('radius', String(rad.lawyersKm * 1000));
     if (extraParams.caseType) params.set('caseType', extraParams.caseType);
     if (extraParams.fee)      params.set('fee',      extraParams.fee);
     if (extraParams.q)        params.set('q',        extraParams.q);
@@ -189,14 +210,42 @@ function contactLawyer(name, phone) {
 
 function initLawyers() {
   askLocationThenFetch(() => fetchLawyers(), () => fetchLawyers());
-  document.getElementById('lsearch').addEventListener('input',  onFilterChange);
-  document.getElementById('lctype').addEventListener('change',  onFilterChange);
-  document.getElementById('lfee').addEventListener('change',    onFilterChange);
-  document.getElementById('change-loc-btn').addEventListener('click', () => {
+  document.getElementById('lsearch')?.addEventListener('input',  onFilterChange);
+  document.getElementById('lctype')?.addEventListener('change',  onFilterChange);
+  document.getElementById('lfee')?.addEventListener('change',    onFilterChange);
+  document.getElementById('change-loc-btn')?.addEventListener('click', () => {
     requestUserLocationThen(() => fetchLawyers());
   });
   document.getElementById('change-loc-police-btn')?.addEventListener('click', () => {
     requestUserLocationThen(() => fetchPoliceStations());
+  });
+
+  // Manual location for lawyers
+  const applyLawyerManualBtn = document.getElementById('apply-lawyer-manual-btn');
+  const manualLawyerInput = document.getElementById('lawyer-manual-location');
+  applyLawyerManualBtn?.addEventListener('click', () => {
+    const loc = manualLawyerInput?.value?.trim();
+    if (!loc) return;
+    window._userCity = loc;
+    window._userLat = null;
+    window._userLng = null;
+    document.querySelectorAll('.pane .loc-banner strong')
+      ?.forEach?.(el => { el.textContent = loc; });
+    fetchLawyers();
+  });
+
+  // Manual location for police stations
+  const applyPoliceManualBtn = document.getElementById('apply-police-manual-btn');
+  const manualPoliceInput = document.getElementById('police-manual-location');
+  applyPoliceManualBtn?.addEventListener('click', () => {
+    const loc = manualPoliceInput?.value?.trim();
+    if (!loc) return;
+    window._userCity = loc;
+    window._userLat = null;
+    window._userLng = null;
+    document.querySelectorAll('.pane .loc-banner strong')
+      ?.forEach?.(el => { el.textContent = loc; });
+    fetchPoliceStations();
   });
 }
 
@@ -210,7 +259,8 @@ function askLocationThenFetchStations() {
 
   askLocationThenFetch(
     () => fetchPoliceStations(),
-    () => fetchPoliceStations()
+    () => fetchPoliceStations(),
+    { skipIfCity: true }
   );
 }
 
@@ -230,6 +280,10 @@ async function fetchPoliceStations() {
     } else {
       params.set('address', window._userCity || 'Ghaziabad, Uttar Pradesh');
     }
+    const locType = document.getElementById('police-location-type')?.value || 'nearby';
+    const rad = LOCATION_RADIUS[locType] || LOCATION_RADIUS.nearby;
+    // Backend expects `radiusM` in meters for Overpass around query
+    params.set('radiusM', String(rad.policeM));
 
     const res = await fetch(`${API}/police-stations?${params}`, { signal: ctrl.signal });
     const data = await res.json();

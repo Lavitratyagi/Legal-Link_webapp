@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Legal Help</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="legal-help.css"/>
+</head>
+<body>
+  <nav class="navbar">
+        <div class="logo">⚖️ LEGAL<span style="color: #10b981;">LINK</span></div>
+        <ul class="nav-links">
+            <li><a href="Dashboard.html">Home</a></li>
+            <li><a href="Dashboard.html">About</a></li>
+            <li><a href="Dashboard.html">My Cases</a></li>
+            <li><a href="legal-help.html">Legal Help</a></li>
+            <li><a href="lost-found.html">Lost & Found</a></li>
+            <li><a href="evidence.html">Evidence Locker</a></li>
+        </ul>
+        <div class="nav-profile">
+            <i data-lucide="user"></i>
+        </div>
+    </nav>
+  <!-- TAB NAV -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="lawyers">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.4"/><path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      Find a Lawyer
+    </button>
+    <button class="tab-btn" data-tab="ai">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v8H9l-3 2v-2H2V3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+      AI Assistant
+    </button>
+    <button class="tab-btn" data-tab="police">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+      Nearby Police Stations
+    </button>
+    <button class="tab-btn" data-tab="fir">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="3" y="2" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      Submit Case / FIR Help
+    </button>
+  </div>
+
+  <!-- FIND A LAWYER -->
+  <div class="pane active" id="pane-lawyers">
+    <div class="loc-banner">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="7" r="2.5" stroke="#185FA5" stroke-width="1.4"/><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" stroke="#185FA5" stroke-width="1.4" fill="none"/></svg>
+      Showing lawyers near <strong>Ghaziabad, Uttar Pradesh</strong>
+      <button class="change-loc" id="change-loc-btn" type="button" onclick="requestUserLocationThen(() => fetchLawyers())">Change location</button>
+      <div class="loc-manual">
+        <select id="lawyer-location-type" aria-label="Lawyer location type">
+          <option value="nearby" selected>Nearby</option>
+          <option value="citywide">City-wide</option>
+          <option value="wide">Wide</option>
+        </select>
+        <input id="lawyer-manual-location" type="text" placeholder="Type city/area (manual)" />
+        <button type="button" class="apply-loc-btn" id="apply-lawyer-manual-btn">Use</button>
+      </div>
+    </div>
+    <div class="filter-row">
+      <input type="text" id="lsearch" placeholder="Search by name..." />
+      <select id="lctype">
+        <option value="">All case types</option>
+        <option value="criminal">Criminal</option>
+        <option value="family">Family / Divorce</option>
+        <option value="property">Property</option>
+        <option value="consumer">Consumer</option>
+        <option value="labour">Labour / Employment</option>
+        <option value="cyber">Cyber crime</option>
+        <option value="immigration">Immigration</option>
+        <option value="civil">Civil</option>
+      </select>
+      <select id="lfee">
+        <option value="">Any fee</option>
+        <option value="free">Free consultation</option>
+        <option value="low">Under ₹2,000/hr</option>
+        <option value="mid">₹2,000–5,000/hr</option>
+      </select>
+    </div>
+    <div id="lawyer-list"></div>
+    <p class="no-results" id="no-lawyers" style="display:none">No lawyers match your filters. Try changing the case type or fee range.</p>
+  </div>
+
+  <!-- AI ASSISTANT -->
+  <div class="pane" id="pane-ai">
+    <div class="pane-header">
+      <h2>AI Legal Assistant</h2>
+      <p>Ask in Hindi, English, ya Hinglish — general legal guidance ke liye. Professional advice ke liye ek vakeel se milein.</p>
+    </div>
+    <div class="chat-area" id="chat-box">
+      <div class="msg bot">Namaste! Aap apna legal sawal pooch sakte hain — Hindi, English, ya Hinglish mein. Main general guidance dunga. Kya jaanna chahte hain aap?</div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="chat-in" placeholder="Type your question here..." />
+      <button class="btn-send" id="chat-send">Send</button>
+    </div>
+    <div class="chips-label">Quick questions:</div>
+    <div class="chips">
+      <span class="chip" data-q="FIR kaise darj karein?">FIR kaise darj karein?</span>
+      <span class="chip" data-q="Mujhe bail kaise milegi?">Bail kaise milegi?</span>
+      <span class="chip" data-q="Property dispute mein kya karein?">Property dispute</span>
+      <span class="chip" data-q="What are my rights if arrested?">Rights if arrested</span>
+      <span class="chip" data-q="Domestic violence mein help chahiye">Domestic violence help</span>
+      <span class="chip" data-q="Consumer complaint kaise karein?">Consumer complaint</span>
+    </div>
+    <p class="disclaimer">This AI provides general legal information only — not legal advice. For your specific case, please consult a qualified advocate.</p>
+  </div>
+
+  <!-- NEARBY POLICE STATIONS -->
+  <div class="pane" id="pane-police">
+    <div class="loc-banner">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="7" r="2.5" stroke="#185FA5" stroke-width="1.4"/><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" stroke="#185FA5" stroke-width="1.4" fill="none"/></svg>
+      Showing stations near <strong>Ghaziabad, Uttar Pradesh</strong>
+      <button type="button" class="change-loc" id="change-loc-police-btn" onclick="requestUserLocationThen(() => fetchPoliceStations())">Change location</button>
+      <div class="loc-manual">
+        <select id="police-location-type" aria-label="Police location type">
+          <option value="nearby" selected>Nearby</option>
+          <option value="citywide">City-wide</option>
+          <option value="wide">Wide</option>
+        </select>
+        <input id="police-manual-location" type="text" placeholder="Type city/area (manual)" />
+        <button type="button" class="apply-loc-btn" id="apply-police-manual-btn">Use</button>
+      </div>
+    </div>
+    <div id="station-list"></div>
+    <div class="helplines">
+      <span>Emergency: <strong>112</strong></span>
+      <span>Women helpline: <strong>1090</strong></span>
+      <span>Cyber crime: <strong>1930</strong></span>
+      <span>Legal aid: <strong>15100</strong></span>
+    </div>
+  </div>
+
+  <!-- SUBMIT CASE / FIR -->
+  <div class="pane" id="pane-fir">
+    <div class="pane-header">
+      <h2>Submit Your Case / FIR Help</h2>
+      <p>Apni complaint ya case yahan submit karein. Hum aapko sahi police station ya lawyer se connect karenge. FIR draft karne mein bhi madad milegi.</p>
+    </div>
+    <form id="fir-form" novalidate>
+      <div class="form-row">
+        <div class="field">
+          <label>Full name / Poora naam <span class="req">*</span></label>
+          <input type="text" id="f-name" placeholder="e.g. Rahul Kumar" required />
+        </div>
+        <div class="field">
+          <label>Phone number <span class="req">*</span></label>
+          <input type="tel" id="f-phone" placeholder="+91 98765 43210" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Email (optional)</label>
+          <input type="email" id="f-email" placeholder="you@example.com" />
+        </div>
+        <div class="field">
+          <label>Your city / area <span class="req">*</span></label>
+          <input type="text" id="f-city" placeholder="e.g. Indirapuram, Ghaziabad" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Type of case / Mamle ka prakar <span class="req">*</span></label>
+          <select id="f-type" required>
+            <option value="">Select...</option>
+            <option>Criminal (Faujdaari)</option>
+            <option>Theft / Chori</option>
+            <option>Fraud / Dhokha</option>
+            <option>Domestic violence</option>
+            <option>Property dispute</option>
+            <option>Cyber crime</option>
+            <option>Harassment</option>
+            <option>Labour / Mazdoori</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Date of incident</label>
+          <input type="date" id="f-date" />
+        </div>
+      </div>
+      <div class="field full">
+        <label>Describe what happened / Kya hua batayein <span class="req">*</span></label>
+        <textarea id="f-desc" rows="4" placeholder="Poori baat likhe — kab, kahan, kya hua, kaun involved tha..." required></textarea>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>What help do you need? / Kya chahiye?</label>
+          <select id="f-help">
+            <option>Draft a FIR / FIR likhne mein madad</option>
+            <option>Find a lawyer nearby</option>
+            <option>Understand my legal options</option>
+            <option>All of the above</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Urgency / Zaroorat</label>
+          <select id="f-urgency">
+            <option>Not urgent — within a week</option>
+            <option>Moderate — within 2–3 days</option>
+            <option>Urgent — within 24 hours</option>
+            <option>Emergency — right now</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Submit Case</button>
+      </div>
+      <div class="success-msg" id="fir-success">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#3B6D11" stroke-width="1.4"/><path d="M5 8l2 2 4-4" stroke="#3B6D11" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Aapki complaint submit ho gayi! Ek legal expert 24 ghante ke andar aapse contact karega. Agar emergency hai toh abhi <strong>112</strong> par call karein.
+      </div>
+    </form>
+  </div>
+
+  <script src="legal-help.js"></script>
+</body>
+</html>
