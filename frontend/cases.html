@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Cases — LegalLink</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f9fafb;
+      color: #1f2937;
+      min-height: 100vh;
+    }
+
+    /* ── Navbar ── */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 6%;
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { font-weight: 800; font-size: 1.4rem; color: #111; text-decoration: none; }
+    .logo span { color: #10b981; }
+    .nav-links { display: flex; list-style: none; gap: 1.8rem; }
+    .nav-links a { text-decoration: none; color: #374151; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: #10b981; }
+
+    /* ── Profile dropdown ── */
+    .nav-right { position: relative; }
+    .profile-btn {
+      background: none;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 50%;
+      width: 36px; height: 36px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s;
+    }
+    .profile-btn:hover { border-color: #10b981; }
+    .profile-btn svg { width: 18px; height: 18px; color: #374151; }
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      min-width: 160px;
+      overflow: hidden;
+      z-index: 200;
+    }
+    .dropdown.open { display: block; }
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 16px;
+      font-size: 14px;
+      color: #374151;
+      cursor: pointer;
+      transition: background 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+    .dropdown-item:hover { background: #f9fafb; }
+    .dropdown-item.danger { color: #dc2626; }
+    .dropdown-item.danger:hover { background: #fef2f2; }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+      color: #fff;
+      padding: 3rem 6%;
+    }
+    .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .hero p  { font-size: 1rem; opacity: 0.8; }
+
+    /* ── Stats Row ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      padding: 2rem 6%;
+    }
+    .stat-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .stat-card.highlight {
+      background: #10b981;
+      border-color: #10b981;
+      color: #fff;
+    }
+    .stat-num  { font-size: 2rem; font-weight: 700; }
+    .stat-label{ font-size: 0.85rem; opacity: 0.75; margin-top: 4px; }
+    .stat-card.highlight .stat-label { opacity: 0.9; }
+
+    /* ── Cases list ── */
+    .section {
+      padding: 0 6% 3rem;
+    }
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+    .case-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: border-color 0.15s;
+    }
+    .case-card:hover { border-color: #10b981; }
+    .case-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: #ecfdf5;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 18px;
+    }
+    .case-body { flex: 1; }
+    .case-type { font-weight: 600; font-size: 15px; margin-bottom: 3px; }
+    .case-desc { font-size: 13px; color: #6b7280; margin-bottom: 8px; line-height: 1.5; }
+    .case-meta { display: flex; gap: 12px; font-size: 12px; flex-wrap: wrap; align-items: center; }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .badge-pending  { background: #fef9c3; color: #854d0e; }
+    .badge-assigned { background: #dbeafe; color: #1e40af; }
+    .badge-resolved { background: #dcfce7; color: #166534; }
+    .badge-urgent   { background: #fee2e2; color: #991b1b; }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #9ca3af;
+    }
+    .empty-state svg { width: 48px; height: 48px; margin-bottom: 1rem; opacity: 0.4; }
+    .empty-state p   { font-size: 15px; }
+    .empty-state a   {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #10b981;
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .loading-row {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .skeleton {
+      background: #f3f4f6;
+      border-radius: 12px;
+      height: 80px;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <a href="Dashboard.html" class="logo">⚖️ LEGAL<span>LINK</span></a>
+    <ul class="nav-links">
+      <li><a href="Dashboard.html">Home</a></li>
+      <li><a href="Dashboard.html">About</a></li>
+      <li><a href="cases.html" class="active">My Cases</a></li>
+      <li><a href="legal-help.html">Legal Help</a></li>
+      <li><a href="lost-found.html">Lost &amp; Found</a></li>
+      <li><a href="evidence.html">Evidence Locker</a></li>
+    </ul>
+    <!-- ── FIX 5: Profile dropdown ── -->
+    <div class="nav-right">
+      <button class="profile-btn" id="profile-btn" title="Profile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+      </button>
+      <div class="dropdown" id="profile-dropdown">
+        <div class="dropdown-item" id="user-label" style="font-weight:600;border-bottom:1px solid #f3f4f6;cursor:default">
+          👤 <span id="username-display">My Account</span>
+        </div>
+        <button class="dropdown-item danger" onclick="logout()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <h1>My Cases</h1>
+    <p>Track all your submitted cases and legal requests</p>
+  </div>
+
+  <!-- ── STATS ── -->
+  <div class="stats-row" id="stats-row">
+    <div class="stat-card"><div class="stat-num" id="stat-total">—</div><div class="stat-label">Total Cases</div></div>
+    <div class="stat-card highlight"><div class="stat-num" id="stat-active">—</div><div class="stat-label">Active Cases</div></div>
+    <div class="stat-card"><div class="stat-num" id="stat-resolved">—</div><div class="stat-label">Resolved</div></div>
+    <div class="stat-card"><div class="stat-num" id="stat-urgent">—</div><div class="stat-label">Urgent / Emergency</div></div>
+  </div>
+
+  <!-- ── CASES LIST ── -->
+  <div class="section">
+    <div class="section-title">All Submitted Cases</div>
+    <div id="cases-list">
+      <div class="loading-row">
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = 'http://localhost:5000/api';
+
+    // ── Profile dropdown ──────────────────────
+    const profileBtn  = document.getElementById('profile-btn');
+    const dropdown    = document.getElementById('profile-dropdown');
+
+    profileBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('open');
+    });
+    document.addEventListener('click', () => dropdown.classList.remove('open'));
+
+    // Show username from localStorage
+    const storedUser = localStorage.getItem('username') || localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        const parsed = JSON.parse(storedUser);
+        document.getElementById('username-display').textContent =
+          parsed.username || parsed.name || storedUser;
+      } catch {
+        document.getElementById('username-display').textContent = storedUser;
+      }
+    }
+
+    // ── FIX 5: Logout ─────────────────────────
+    function logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      localStorage.removeItem('username');
+      sessionStorage.clear();
+      window.location.href = 'index.html';   // ← change to your login page filename
+    }
+
+    // ── FIX 3: Load real cases from MongoDB ───
+    const CASE_ICONS = {
+      'Criminal':          '⚖️',
+      'Theft / Chori':     '🔍',
+      'Fraud / Dhokha':    '🚨',
+      'Domestic violence': '🏠',
+      'Property dispute':  '🏗️',
+      'Cyber crime':       '💻',
+      'Harassment':        '⚠️',
+      'Labour / Mazdoori': '👷',
+      'Other':             '📋'
+    };
+
+    function badgeClass(status) {
+      const map = { pending: 'badge-pending', assigned: 'badge-assigned', resolved: 'badge-resolved' };
+      return map[status] || 'badge-pending';
+    }
+
+    function urgencyLabel(u) {
+      const map = { not_urgent:'Not urgent', moderate:'Moderate', urgent:'Urgent', emergency:'🚨 Emergency' };
+      return map[u] || u;
+    }
+
+    function formatDate(iso) {
+      if (!iso) return '';
+      return new Date(iso).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+    }
+
+    async function loadCases() {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API}/legal/my-cases?limit=50`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json();
+
+        if (!data.success) {
+          showError('Could not load cases: ' + (data.message || 'Unknown error'));
+          return;
+        }
+
+        const cases = data.cases || [];
+        const s = data.stats || {};
+
+        document.getElementById('stat-total').textContent    = s.total ?? 0;
+        document.getElementById('stat-active').textContent   = s.active ?? 0;
+        document.getElementById('stat-resolved').textContent = s.resolved ?? 0;
+        document.getElementById('stat-urgent').textContent   = s.urgent ?? 0;
+
+        // ── Render case cards ──
+        const list = document.getElementById('cases-list');
+        if (!cases.length) {
+          list.innerHTML = `
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              <p>No cases submitted yet.</p>
+              <a href="legal-help.html">Submit your first case →</a>
+            </div>`;
+          return;
+        }
+
+        list.innerHTML = cases.map(c => `
+          <div class="case-card">
+            <div class="case-icon">${CASE_ICONS[c.caseType] || '📋'}</div>
+            <div class="case-body">
+              <div class="case-type">${c.caseType}</div>
+              <div class="case-desc">${c.description?.slice(0, 120)}${c.description?.length > 120 ? '...' : ''}</div>
+              <div class="case-meta">
+                <span class="badge ${badgeClass(c.status)}">${c.status?.toUpperCase()}</span>
+                ${c.urgency === 'urgent' || c.urgency === 'emergency'
+                  ? `<span class="badge badge-urgent">${urgencyLabel(c.urgency)}</span>` : ''}
+                <span style="color:#9ca3af">📅 ${formatDate(c.createdAt)}</span>
+                ${c.city ? `<span style="color:#9ca3af">📍 ${c.city}</span>` : ''}
+                ${c.assignedLawyer?.name
+                  ? `<span style="color:#065f46;font-weight:500">👨‍⚖️ ${c.assignedLawyer.name}</span>` : ''}
+              </div>
+            </div>
+          </div>`).join('');
+
+      } catch (err) {
+        showError('Network error — make sure backend is running.');
+        console.error(err);
+      }
+    }
+
+    function showError(msg) {
+      document.getElementById('cases-list').innerHTML =
+        `<div class="empty-state"><p style="color:#dc2626">${msg}</p></div>`;
+    }
+
+    // Load on page ready
+    loadCases();
+  </script>
+</body>
+</html>
