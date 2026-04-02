@@ -28,6 +28,10 @@ exports.login = async (req, res) => {
       console.warn("login: wrong password for", user.email);
       return res.status(401).json({ message: "Invalid email or password" });
     }
+    if (!process.env.JWT_SECRET) {
+      console.error('login: JWT_SECRET is missing in backend/.env');
+      return res.status(500).json({ message: 'JWT_SECRET missing in backend/.env' });
+    }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d"
     });
