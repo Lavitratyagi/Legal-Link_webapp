@@ -153,7 +153,7 @@ async function loadCaseDetails(caseId) {
                             <button class="btn-premium" onclick="loadActivity('${ev._id}')" style="padding:4px 12px; font-size:0.75rem; background:transparent; border-color:var(--glass-border)">
                                 Chain of Custody
                             </button>
-                            <a href="${ev.fileUrl}" target="_blank" class="btn-premium" style="padding:4px 12px; font-size:0.75rem; text-decoration:none;">
+                            <a href="http://localhost:5000${ev.fileUrl}" target="_blank" class="btn-premium" style="padding:4px 12px; font-size:0.75rem; text-decoration:none;">
                                 View File
                             </a>
                         </div>
@@ -175,7 +175,7 @@ async function uploadEvidence() {
     const formData = new FormData();
     formData.append('caseId', currentCaseId);
     formData.append('description', desc);
-    formData.append('evidence', file);
+    formData.append('file', file);
 
     try {
         const res = await fetch(`${API}/evidence/upload`, {
