@@ -61,7 +61,7 @@ async function fetchCases() {
 
         document.getElementById('stat-total').textContent = cases.length;
         document.getElementById('stat-active').textContent = cases.filter(c => c.status === 'active').length;
-        
+
         // We'll calculate verified count from evidence, but for now sum total cases
         document.getElementById('stat-verified').textContent = cases.reduce((acc, c) => acc + (c.evidenceCount || 0), 0);
 
@@ -123,16 +123,28 @@ async function loadCaseDetails(caseId) {
     timeline.innerHTML = '<p style="color:var(--text-secondary)">Decrypting evidence ledger...</p>';
 
     try {
-        // Fetch specific case info for the header (optional, or pass from list)
-        // For now, let's just fetch evidence
+        // Fetch specific case info for the header
+        const resCase = await fetch(`${API}/cases/${caseId}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const caseData = await resCase.json();
+        if (caseData.success) {
+            const c = caseData.case;
+            document.getElementById('det-title').textContent = c.title;
+            document.getElementById('det-client').textContent = `CLIENT: ${c.clientName}`;
+            document.getElementById('det-type').textContent = c.caseType?.toUpperCase();
+            document.getElementById('det-desc').textContent = c.description || 'No detailed case brief provided.';
+        }
+        else {
+            document.getElementById('det-client').textContent = `CLIENT: Error`;
+        }
+
+        // Fetch evidence
         const resEv = await fetch(`${API}/evidence/${caseId}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await resEv.json();
         const evidenceList = data.evidence || [];
-
-        // Update header from some global state or refetch (simplified here)
-        // document.getElementById('det-title').textContent = ...;
 
         if (evidenceList.length === 0) {
             timeline.innerHTML = '<p style="color:var(--text-secondary)">No digital evidence has been committed to this ledger.</p>';
@@ -223,7 +235,7 @@ async function loadActivity(evId) {
         });
         const data = await res.json();
         const logs = data.logs || [];
-        
+
         box.innerHTML = logs.map(l => `
             <div style="font-size:0.75rem; color:var(--text-secondary); margin-bottom:4px; padding-left:12px; border-left:1px solid var(--emerald)">
                 <span style="color:var(--emerald)">${l.action}</span> by ${l.performedBy?.username || 'System'} 

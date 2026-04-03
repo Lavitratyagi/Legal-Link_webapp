@@ -46,3 +46,21 @@ exports.getMyCases = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server Error' });
   }
 };
+
+exports.getCaseById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const c = await Case.findById(id);
+    if (!c) return res.status(404).json({ success: false, message: 'Case not found' });
+    
+    // Safety check: only the lawyer assigned to this case should view it
+    if (c.lawyerId.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ success: false, message: 'Access denied' });
+    }
+    
+    return res.json({ success: true, case: c });
+  } catch (err) {
+    console.error('getCaseById error:', err);
+    res.status(500).json({ success: false, message: 'Server Error' });
+  }
+};
