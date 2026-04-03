@@ -21,89 +21,108 @@
   color:#0b57dc;
 }
 
-/* MOVING BACKGROUND */
+/* PREMIUM BACKGROUND */
 .bg {
   position: fixed;
   inset: 0;
-  background: url("../images/disaster-bg.jpg") center/cover no-repeat;
-  animation: zoomMove 25s ease-in-out infinite;
+  background: linear-gradient(135deg, #091221 0%, #0c1a32 100%);
   z-index: -2;
 }
 
-@keyframes zoomMove {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-  100% { transform: scale(1); }
+.bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
+                    radial-gradient(circle at bottom left, rgba(212, 175, 55, 0.12) 0%, transparent 40%);
+  animation: slowPulse 8s ease-in-out infinite alternate;
 }
 
-/* GRADIENT OVERLAY */
+@keyframes slowPulse {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* OVERLAY */
 .overlay {
   position: fixed;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(40, 40, 40, 0.75),
-    rgba(20, 30, 40, 0.8)
-  );
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
   z-index: -1;
 }
 
 /* CARD */
 .auth-card {
-  width: 360px;
+  width: 380px;
   margin: auto;
-  margin-top: 8%;
-  padding: 30px;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+  margin-top: 10%;
+  padding: 40px 30px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
   text-align: center;
 }
 
 .auth-card h2 {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  color: #ffffff;
+  letter-spacing: 1px;
 }
 
 .subtitle {
-  font-size: 14px;
-  opacity: 0.85;
-  margin-bottom: 20px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
 
 /* INPUTS */
 .auth-card input,
 .auth-card select {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 14px;
-  border-radius: 8px;
-  border: 1px solid #A8DADC;
-  background: rgba(255,255,255,0.15);
+  padding: 14px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(0, 0, 0, 0.25);
   color: #fff;
+  font-size: 15px;
   outline: none;
+  transition: all 0.3s ease;
+}
+
+.auth-card input:focus {
+  border-color: rgba(212, 175, 55, 0.8);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
 }
 
 .auth-card input::placeholder {
-  color: #e0e0e0;
+  color: rgba(255,255,255,0.35);
 }
 
 /* BUTTON */
 .auth-card button {
   width: 100%;
-  padding: 12px;
-  background: #E63946;
+  padding: 14px;
+  margin-top: 10px;
+  background: linear-gradient(135deg, #d4af37 0%, #b5952f 100%);
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  font-size: 16px;
   font-weight: bold;
-  color: #fff;
+  color: #111;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
 }
 
 .auth-card button:hover {
-  background: #c92f3b;
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
 }
 
 #loginRole{
@@ -117,7 +136,7 @@
 }
 
 .switch a {
-  color: #A8DADC;
+  color: #d4af37;
   text-decoration: none;
 }
 
