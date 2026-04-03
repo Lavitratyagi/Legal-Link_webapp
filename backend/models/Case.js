@@ -15,11 +15,19 @@ const CaseSchema = new mongoose.Schema({
     default: null
   },
 
+  // ── Explicit Case Management Support ──
+  lawyerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  title: { type: String },
+  clientName: { type: String },
+
   // ── Complainant Info (from the FIR form) ────
-  name:  { type: String, required: true },
-  phone: { type: String, required: true },
+  name:  { type: String, required: false },
+  phone: { type: String, required: false },
   email: { type: String },           // optional
-  city:  { type: String, required: true },
+  city:  { type: String, required: false },
 
   // ── Case Details ────────────────────────────
   caseType: {

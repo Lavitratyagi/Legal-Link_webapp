@@ -1,38 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Legal Link| Signup</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegalLink | Register Firm</title>
+    <link rel="stylesheet" href="global-theme.css">
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .auth-card {
+            width: 100%;
+            max-width: 440px;
+            padding: 48px;
+            text-align: center;
+        }
+        .logo-main {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            display: block;
+            text-decoration: none;
+            color: #fff;
+        }
+        .logo-main span { color: var(--emerald); }
+        .auth-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            color: #fff;
+            font-family: var(--font-body);
+            transition: var(--transition);
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--emerald);
+            background: rgba(255,255,255,0.08);
+        }
+        .auth-btn {
+            width: 100%;
+            margin-top: 12px;
+            height: 52px;
+        }
+        .auth-footer {
+            margin-top: 24px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .auth-footer a {
+            color: var(--emerald);
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
 </head>
+<body>
+    <div class="mesh-bg"></div>
+    <div class="auth-container">
+        <div class="glass-card auth-card">
+            <a href="index.html" class="logo-main">⚖️ LEGAL<span>LINK</span></a>
+            <p class="auth-subtitle">Onboard Your Legal Practice</p>
+            
+            <form id="signupForm">
+                <div class="form-group">
+                    <label>FULL NAME</label>
+                    <input type="text" id="username" placeholder="Adv. Alexander Pierce" required>
+                </div>
+                <div class="form-group">
+                    <label>FIRM EMAIL</label>
+                    <input type="email" id="email" placeholder="lawyer@firm.com" required>
+                </div>
+                <div class="form-group">
+                    <label>SECURE PASSWORD</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-premium auth-btn">Register Firm</button>
+            </form>
 
-<body class="auth-page">
+            <div class="auth-footer">
+                Already registered? <a href="index.html">Secure Login</a>
+            </div>
+        </div>
+    </div>
 
-  <!-- Background -->
-  <div class="bg"></div>
-  <div class="overlay"></div>
-
-  <!-- Signup Card -->
-   
-  <div class="auth-card">
-    <h2>Create Account</h2>
-    <p class="subtitle">Join Legal Help System</p>
-    <input id="signupUser" type="text" placeholder="Username">
-<input id="signupEmail" type="email" placeholder="Email">
-
-<input id="signupPass" type="password" placeholder="Password">
-
- <input type="password" id="signupPassconf" placeholder="Confirm Password" required><br><br>
-
-
-<p class="error-msg" id="signupError"></p>
-
-<button onclick="signup()">Sign Up</button>
-
-
-  </div>
- 
-
-  <script src="auth.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>

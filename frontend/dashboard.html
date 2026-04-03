@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegalLink | Professional Dashboard</title>
+    <link rel="stylesheet" href="global-theme.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="mesh-bg"></div>
+
+    <nav class="navbar">
+        <div class="logo">⚖️ LEGAL<span>LINK</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="cases.html">Case Matrix</a></li>
+            <li><a href="legal-help.html">Counsel</a></li>
+            <li><a href="dashboard.html#contact">Support</a></li>
+        </ul>
+        <div class="nav-profile">
+            <i data-lucide="user"></i>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="badge">Enterprise Legal Architecture</div>
+            <h1>The Future of <span>Digital Jurisprudence</span></h1>
+            <p>A high-security, unified environment for modern legal practice. Manage cases, secure evidence, and access counsel with military-grade encryption.</p>
+            <div style="display: flex; gap: 16px;">
+                <button class="btn-premium" onclick="location.href='cases.html'">Enter Case Matrix</button>
+                <button class="btn-premium btn-outline" onclick="location.href='dashboard.html#services'">Explore Ecosystem</button>
+            </div>
+        </div>
+        <div class="hero-image-wrapper">
+            <div class="glass-card hero-image-card">
+                <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop" alt="Legal Shield">
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="container">
+            <span class="section-tag">Core Capabilities</span>
+            <h2 class="section-title">One Platform, Total Authority</h2>
+            
+            <div class="bento-grid">
+                <div class="glass-card bento-item bento-large">
+                    <i data-lucide="shield-check"></i>
+                    <h4>Evidence Locker</h4>
+                    <p>SHA-256 integrity verification with automated chain-of-custody logging. The standard for digital discovery.</p>
+                </div>
+                <div class="glass-card bento-item">
+                    <i data-lucide="scale"></i>
+                    <h4>Case Tracking</h4>
+                    <p>Real-time lifecycle management from intake to resolution.</p>
+                </div>
+                <div class="glass-card bento-item">
+                    <i data-lucide="bot"></i>
+                    <h4>AI Counsel</h4>
+                    <p>Native GPT integration for legislative research and FIR drafting.</p>
+                </div>
+                <div class="glass-card bento-item bento-large">
+                    <i data-lucide="database"></i>
+                    <h4>Immutable Logs</h4>
+                    <p>Every interaction is timestamped and recorded in the audit trail, ensuring absolute accountability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dashboard-preview">
+        <div class="container">
+            <div class="glass-card stats-grid">
+                <div class="stat-box">
+                    <h3>0</h3>
+                    <p>Total Cases</p>
+                </div>
+                <div class="stat-box active-stat">
+                    <h3>0</h3>
+                    <p>Active Files</p>
+                </div>
+                <div class="stat-box">
+                    <h3>0</h3>
+                    <p>Verified Records</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="glass-card contact-card">
+                <div class="contact-info">
+                    <h2>Consult Our Masters</h2>
+                    <p style="color: var(--text-secondary); margin-top: 16px;">Have specific requirements for your practice? Reach out to our technical legal team for enterprise onboarding.</p>
+                </div>
+                <div class="contact-form">
+                    <form class="contact-form">
+                        <input type="text" placeholder="Your Professional Name" required>
+                        <input type="email" placeholder="Firm Email" required>
+                        <textarea placeholder="Specify your requirements..." rows="4"></textarea>
+                        <button type="submit" class="btn-premium" style="width: 100%;">Initiat Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">⚖️ LEGAL<span>LINK</span></div>
+                <div class="footer-links">
+                    <a href="#">Governance</a>
+                    <a href="#">Privilege</a>
+                    <a href="#">Security Audit</a>
+                </div>
+            </div>
+            <p class="copyright">© 2026 LegalLink Ecosystem. Powered by Absolute Integrity.</p>
+        </div>
+    </footer>
+
+    <script src="dashboard.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>ript>
+</body>
+</html>

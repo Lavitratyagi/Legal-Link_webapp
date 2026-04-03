@@ -473,22 +473,20 @@ function initProfileDropdown() {
 
   if (!document.getElementById('profile-dropdown')) {
     navProfile.insertAdjacentHTML('beforeend', `
-    <div id="profile-dropdown" style="
-      display:none; position:absolute; top:calc(100% + 10px); right:0;
-      background:#fff; border:1px solid #e5e7eb; border-radius:12px;
-      box-shadow:0 8px 28px rgba(0,0,0,0.12); min-width:170px;
-      overflow:hidden; z-index:9999;
+    <div id="profile-dropdown" class="glass-card" style="
+      display:none; position:absolute; top:calc(100% + 15px); right:0;
+      min-width:200px; overflow:hidden; z-index:9999; padding: 8px 0;
     ">
-      <div style="padding:12px 16px;font-size:14px;font-weight:600;
-                  border-bottom:1px solid #f3f4f6;color:#111;cursor:default;">
-        👤 <span id="nav-username">My Account</span>
+      <div style="padding:12px 20px;font-size:0.8rem;font-weight:700;
+                  border-bottom:1px solid var(--glass-border);color:var(--gold);text-transform:uppercase;">
+        👤 <span id="nav-username">Lawyer</span>
       </div>
       <button type="button" id="legal-help-logout-btn" style="
-        display:flex;align-items:center;gap:8px;width:100%;padding:11px 16px;
-        font-size:14px;color:#dc2626;background:none;border:none;cursor:pointer;
-        border-top:1px solid #f3f4f6;text-align:left;font-family:inherit;
-      " onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
-        🚪 Logout
+        display:flex;align-items:center;gap:12px;width:100%;padding:14px 20px;
+        font-size:0.9rem;color:#ef4444;background:none;border:none;cursor:pointer;
+        text-align:left;font-family:inherit;font-weight:600;
+      " onmouseover="this.style.background='rgba(239, 68, 68, 0.1)'" onmouseout="this.style.background='none'">
+        🚪 Logout session
       </button>
     </div>`);
     document.getElementById('legal-help-logout-btn')?.addEventListener('click', (ev) => {

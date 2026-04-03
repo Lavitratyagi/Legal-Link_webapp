@@ -12,6 +12,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static('uploads'));
 
 // Connect MongoDB
 mongoose.connect(process.env.MONGO_URI)
@@ -22,6 +23,8 @@ mongoose.connect(process.env.MONGO_URI)
 app.use('/api/auth',    require('./routes/authRoutes'));
 app.use('/api/legal',   require('./routes/legalRoutes'));
 app.use('/api/contact', require('./routes/contactRoutes'));
+app.use('/api/cases',   require('./routes/casesRoutes'));
+app.use('/api/evidence',require('./routes/evidenceRoutes'));
 
 // Health check
 app.get('/api/health', (req, res) =>
