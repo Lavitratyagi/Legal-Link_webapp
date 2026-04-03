@@ -1,58 +1,5 @@
 /* ── DASHBOARD: THE MODERN GAVEL ── */
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 8%;
-    background: rgba(2, 6, 23, 0.8);
-    backdrop-filter: blur(12px);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid var(--glass-border);
-}
-
-.logo {
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: 1.5rem;
-    color: #fff;
-    letter-spacing: -0.02em;
-}
-
-.logo span { color: var(--emerald); }
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 2.5rem;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--text-secondary);
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: var(--transition);
-}
-
-.nav-links a:hover { color: var(--emerald); }
-
-.nav-profile {
-    width: 40px;
-    height: 40px;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.nav-profile:hover { border-color: var(--emerald); }
 
 /* ── Hero ── */
 .hero {
