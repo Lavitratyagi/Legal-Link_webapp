@@ -78,7 +78,7 @@ function initProfileDropdown() {
   navProfile.insertAdjacentHTML('beforeend', `
     <div id="profile-dropdown" class="glass-card" style="
       display:none; position:absolute; top:calc(100% + 15px); right:0;
-      min-width:200px; overflow:hidden; z-index:9999; padding: 8px 0;
+      min-width:200px; overflow:hidden; z-index:9999; padding: 8px 0; background: var(--base-light);
     ">
       <div style="padding:12px 20px;font-size:0.8rem;font-weight:700;
                   border-bottom:1px solid var(--glass-border);color:var(--gold);text-transform:uppercase;">

@@ -21,7 +21,7 @@ function initProfileDropdown() {
     container.innerHTML = `
         <div id="profile-dropdown" class="glass-card" style="
             display:none; position:absolute; top:70px; right:6%;
-            min-width:200px; z-index:9999; padding: 8px 0;
+            min-width:200px; z-index:9999; padding: 8px 0; background: var(--base-light);
         ">
             <div style="padding:12px 20px; font-size:0.8rem; font-weight:700; border-bottom:1px solid var(--glass-border); color:var(--gold); text-transform:uppercase;">
                 👤 <span id="dd-username">${user?.name || 'Lawyer'}</span>

@@ -172,12 +172,25 @@
     font-weight: 700;
 }
 
-input, select, textarea {
+input, textarea {
     background: var(--glass) !important;
     border: 1px solid var(--glass-border) !important;
     border-radius: var(--radius-md) !important;
     padding: 14px !important;
     color: #fff !important;
+}
+
+select {
+    background: var(--base-light) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 14px !important;
+    color: #fff !important;
+}
+
+option {
+    background: var(--base-light);
+    color: #fff;
 }
 
 input:focus { border-color: var(--emerald) !important; }
